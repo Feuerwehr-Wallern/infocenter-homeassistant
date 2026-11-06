@@ -14,6 +14,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
         InfocenterSensor(coordinator, entry, "active_operations"),
         InfocenterSensor(coordinator, entry, "operations"),
         InfocenterSensor(coordinator, entry, "statistics"),
+        InfocenterSensor(coordinator, entry, "events"),
     ])
 
 class InfocenterSensor(CoordinatorEntity, SensorEntity):
@@ -28,6 +29,7 @@ class InfocenterSensor(CoordinatorEntity, SensorEntity):
             "active_operations": "Aktive Einsatzliste",
             "operations": "Einsatzliste",
             "statistics": "Statistik",
+            "events": "Nächste Termine",
         }
         self._attr_name = names[kind]
         self._attr_icon = {
@@ -35,6 +37,7 @@ class InfocenterSensor(CoordinatorEntity, SensorEntity):
             "active_operations": "mdi:fire-alert",
             "operations": "mdi:clipboard-list",
             "statistics": "mdi:chart-bar",
+            "events": "mdi:calendar-clock",
         }[kind]
 
     @property
@@ -46,6 +49,8 @@ class InfocenterSensor(CoordinatorEntity, SensorEntity):
             return len(data.get("active", []))
         if self.kind == "operations":
             return len(data.get("operations", []))
+        if self.kind == "events":
+            return len(data.get("events", []))
         return data.get("statistics", {}).get("total", data.get("statistics", {}).get("count", "Daten"))
 
     @property
@@ -58,4 +63,6 @@ class InfocenterSensor(CoordinatorEntity, SensorEntity):
         if self.kind == "operations":
             return {"operations": data.get("operations", []), "updated": data.get("updated"),
                     "meta": data.get("operations_meta", {})}
-        return {"statistics": data.get("statistics", {}), "updated": data.get("updated")}
+        if self.kind == "events":
+            return {"events": data.get("events", []), "calendars": data.get("calendars", []), "updated": data.get("updated")}
+        return {"statistics": data.get("statistics", {}), "statistics_by_year": data.get("statistics_by_year", {}), "updated": data.get("updated")}

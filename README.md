@@ -50,3 +50,43 @@ custom_components/feuerwehr_infocenter/
   manifest.json
   sensor.py
 ```
+
+
+### Einsatzstatistik und Einsatzliste (Version 1.3.0)
+
+Die Lovelace-Karte stellt die Monatsstatistik als gestapeltes Balkendiagramm mit den Kategorienfarben dar. Die Einsatzliste wird bereits beim API-Abruf mit `limit=5` begrenzt und zeigt höchstens fünf veröffentlichte Einsätze.
+
+
+## Nächste Termine (WordPress-Widget-Ansicht)
+
+Ab Version 1.5.0 enthält die Lovelace-Karte zusätzlich den Tab **„Nächste Termine“**.
+Die Darstellung orientiert sich am Widget „Feuerwehr – Nächste Termine“ aus
+`ic-calendar.php`: Kalender-Farbpunkt und farbiger Rahmen, laufende Termine zuerst
+(mit dezent blinkendem Punkt), Datum/Uhrzeit, Ort, Kontaktperson, Beschreibung
+und Kalendername. Bereits beendete Termine werden ausgeblendet.
+
+Die Standardanzeige umfasst fünf Termine. Optional kann die Karte angepasst werden:
+
+```yaml
+type: custom:feuerwehr-infocenter-card
+title: Feuerwehr Wallern
+active_entity: sensor.feuerwehr_infocenter_aktive_einsatzliste
+entity: sensor.feuerwehr_infocenter_einsatzliste
+stats_entity: sensor.feuerwehr_infocenter_statistik
+events_entity: sensor.feuerwehr_infocenter_naechste_termine
+events_limit: 5
+# Optional: nur ausgewählte Kalender anzeigen
+# events_calendars:
+#   - Allgemein
+#   - Bewerbsgruppe
+```
+
+Die Ereignisdaten werden über den `events`-Endpunkt geladen. Die Kalenderfilter
+sind optional; ohne Filter werden alle Kalender berücksichtigt.
+
+
+### Version 1.5.0
+- Einsatzstatistik mit Umschaltung „Jahr“/„Alle“, Donutdiagramm und Monats-/Jahresbalken.
+- Jahresstatistiken werden beim Aktualisieren der Integration abgerufen.
+- Einsatzlisten-API bleibt auf `limit=5` begrenzt.
+- Termine bleiben als WordPress-Widget-Ansicht mit Kalenderfarben und laufenden Terminen verfügbar.

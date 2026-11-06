@@ -11,7 +11,7 @@ _LOGGER = logging.getLogger(__name__)
 
 CARD_URL = "/feuerwehr-infocenter/feuerwehr-infocenter-card.js"
 CARD_FILE = Path(__file__).parent / "frontend" / "feuerwehr-infocenter-card.js"
-CARD_VERSION = "1.2.0"
+CARD_VERSION = "1.4.0"
 
 
 async def async_register_frontend(hass: HomeAssistant) -> None:
