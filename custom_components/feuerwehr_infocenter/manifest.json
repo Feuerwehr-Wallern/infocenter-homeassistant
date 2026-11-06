@@ -1,0 +1,10 @@
+{
+  "domain": "feuerwehr_infocenter",
+  "name": "Feuerwehr Infocenter",
+  "codeowners": [],
+  "config_flow": true,
+  "documentation": "https://github.com/Feuerwehr-Wallern/infocenter-homeassistant",
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "version": "1.2.0"
+}

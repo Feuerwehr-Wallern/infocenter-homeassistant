@@ -1,0 +1,23 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Feuerwehr Infocenter",
+        "description": "Verbinde dein Feuerwehr-Infocenter.",
+        "data": {
+          "url": "Infocenter Basis-URL",
+          "token": "API-Token"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Token ungültig oder Zugriff verweigert.",
+      "invalid_url": "Bitte eine gültige HTTP(S)-Basis-URL eingeben.",
+      "invalid_response": "Die API-Antwort enthält keine gültige Einsatzliste.",
+      "cannot_connect": "Verbindung fehlgeschlagen. URL und Server prüfen."
+    },
+    "abort": {
+      "already_configured": "Dieses Infocenter ist bereits eingerichtet."
+    }
+  }
+}
