@@ -2,9 +2,9 @@
 class FeuerwehrInfocenterCard extends HTMLElement {
   setConfig(config) {
     if (!config || !config.entity) throw new Error("Bitte entity angeben (z. B. sensor.feuerwehr_infocenter_einsatzliste).");
-    this.config = {title:"Feuerwehr Infocenter", active_entity:"sensor.feuerwehr_infocenter_aktive_einsatzliste",
-      stats_entity:"sensor.feuerwehr_infocenter_statistik",
-      events_entity:"sensor.feuerwehr_infocenter_naechste_termine", events_limit:5, ...config};
+    this.config = {title:"Feuerwehr Infocenter", active_entity:"sensor.aktive_einsatzliste",
+      stats_entity:"sensor.statistik",
+      events_entity:"sensor.nachste_termine", events_limit:5, ...config};
     this.tab = "active";
     this.attachShadow({mode:"open"});
   }

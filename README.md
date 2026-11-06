@@ -17,21 +17,35 @@ Die JavaScript-Karte liegt direkt im Integrationspaket. Beim Einrichten wird sie
 ```yaml
 lovelace:
   resources:
-    - url: /feuerwehr-infocenter/feuerwehr-infocenter-card.js?v=1.2.0
+    - url: /feuerwehr-infocenter/feuerwehr-infocenter-card.js?v=1.5.0
       type: module
 ```
 
-Beispiel für eine Karte:
+Beispiel für die Lovelace-Karte mit den tatsächlichen Entity-IDs dieser Integration:
 
 ```yaml
 type: custom:feuerwehr-infocenter-card
 title: Feuerwehr Wallern – Infocenter
-active_entity: sensor.feuerwehr_infocenter_aktive_einsatzliste
-entity: sensor.feuerwehr_infocenter_einsatzliste
-stats_entity: sensor.feuerwehr_infocenter_statistik
+active_entity: sensor.aktive_einsatzliste
+entity: sensor.einsatzliste
+stats_entity: sensor.statistik
+events_entity: sensor.nachste_termine
+events_limit: 5
 ```
 
-Die tatsächlichen Entity-IDs bitte nach dem Einrichten unter Entwicklerwerkzeuge → Zustände prüfen.
+Die Integration stellt genau diese fünf Sensoren bereit:
+
+| Entity-ID | Inhalt | Verwendung |
+|---|---|---|
+| `sensor.aktive_einsatze` | Anzahl der aktuell aktiven Einsätze | Separater Zähler; wird von der Karte derzeit nicht direkt abgefragt. |
+| `sensor.aktive_einsatzliste` | Liste der aktuell aktiven Einsätze | `active_entity` – Datenquelle für den Bereich „Aktive Einsätze“. |
+| `sensor.einsatzliste` | Liste der veröffentlichten Einsätze (maximal fünf) | `entity` – Datenquelle für die Einsatzliste. |
+| `sensor.nachste_termine` | Nächste Termine samt Kalenderdaten | `events_entity` – Datenquelle für „Nächste Termine“. |
+| `sensor.statistik` | Einsatzstatistik einschließlich Jahresdaten | `stats_entity` – Datenquelle für den Statistikbereich. |
+
+`entity` ist erforderlich. Die vier Kartenoptionen `active_entity`, `entity`, `stats_entity` und `events_entity` sind die vier Sensoren, die die Karte direkt ausliest. `sensor.aktive_einsatze` bleibt als eigenständiger Zählsensor verfügbar und muss nicht in der Kartenkonfiguration eingetragen werden.
+
+**Wichtig:** Die Entity-IDs müssen exakt mit den unter *Einstellungen → Geräte & Dienste → Entitäten* angezeigten IDs übereinstimmen.
 
 ## Hinweise
 - Der API-Token wird als Config-Entry gespeichert und nicht in Logs ausgegeben.
@@ -69,11 +83,11 @@ Die Standardanzeige umfasst fünf Termine. Optional kann die Karte angepasst wer
 
 ```yaml
 type: custom:feuerwehr-infocenter-card
-title: Feuerwehr Wallern
-active_entity: sensor.feuerwehr_infocenter_aktive_einsatzliste
-entity: sensor.feuerwehr_infocenter_einsatzliste
-stats_entity: sensor.feuerwehr_infocenter_statistik
-events_entity: sensor.feuerwehr_infocenter_naechste_termine
+title: Feuerwehr Wallern – Infocenter
+active_entity: sensor.aktive_einsatzliste
+entity: sensor.einsatzliste
+stats_entity: sensor.statistik
+events_entity: sensor.nachste_termine
 events_limit: 5
 # Optional: nur ausgewählte Kalender anzeigen
 # events_calendars:
